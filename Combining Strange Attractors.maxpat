@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 77.0, 1468.0, 713.0 ],
+		"rect" : [ 75.0, 86.0, 687.0, 713.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -59,7 +59,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 353.0, 393.98843399999987, 216.0, 34.0 ],
-					"presentation_linecount" : 4,
 					"text" : "Camera/Viewpoint"
 				}
 
@@ -73,7 +72,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 1418.75, 53.97686799999974, 241.0, 34.0 ],
-					"presentation_linecount" : 2,
 					"text" : "Presentation Scraps"
 				}
 
@@ -416,7 +414,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 947.818376839160919, 1425.669687208350297, 165.0, 22.0 ],
-					"restore" : [ 1.0 ],
+					"restore" : [ 0.0 ],
 					"saved_object_attributes" : 					{
 						"parameter_enable" : 0,
 						"parameter_mappable" : 0
@@ -3994,7 +3992,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 1229.0, 534.0, 111.0, 22.0 ],
-					"restore" : [ 500 ],
+					"restore" : [ 500000 ],
 					"saved_object_attributes" : 					{
 						"parameter_enable" : 0,
 						"parameter_mappable" : 0
@@ -4904,8 +4902,8 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 117.75, 945.0, 224.0, 22.0 ],
-					"text" : "read interpolating_attractors.jxs, compile"
+					"patching_rect" : [ 117.75, 945.0, 255.0, 22.0 ],
+					"text" : "read combining_strange_attractors_shader.jxs"
 				}
 
 			}
@@ -6370,7 +6368,7 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "combining_strange_attractors.json",
-				"bootpath" : "~/Documents/Max 8/-- Test Files/2020-3-5 Interpolating Attractors",
+				"bootpath" : "~/Documents/Code/_____Projects/2019-12-1 Combing Strange Attractors",
 				"patcherrelativepath" : ".",
 				"type" : "JSON",
 				"implicit" : 1
