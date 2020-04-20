@@ -1,0 +1,283 @@
+<jittershader name="tf.strange-attractor.jxs">
+	<description>Transform Feedback Strange Attractors</description>
+	<param name="i_pos" type="vec3" state="POSITION" />
+        //initial position
+	<param name="i_col" type="vec4" state="COLOR" />
+        //initial color
+	<param name="speed" type="float" default="1" />
+	<param name="attractor" type="int" default="1" />
+	<param name="u_col" type="vec4" default="0.0 0.0 0.0 1.0"/>
+        //changeable color
+	<param name="u_A" type="float" default="0.0" />
+	<param name="u_B" type="float" default="0.0" />
+	<param name="u_C" type="float" default="0.0" />
+	<param name="u_D" type="float" default="0.0" />
+	<param name="u_E" type="float" default="0.0" />
+	<param name="u_F" type="float" default="0.0" />
+	<param name="u_G" type="float" default="0.0" />
+	<param name="u_H" type="float" default="0.0" />
+	<param name="u_I" type="float" default="0.0" />
+	<param name="u_J" type="float" default="0.0" />
+	<param name="u_K" type="float" default="0.0" />
+	<param name="u_L" type="float" default="0.0" />
+	<language name="glsl" version="1.5">
+		<bind param="i_pos" program="vp" />
+		<bind param="i_col" program="vp" />
+		<bind param="speed" program="vp" />
+		<bind param="attractor" program="vp" />
+		<bind param="u_col" program="vp" />
+		<bind param="u_A" program="vp" />
+		<bind param="u_B" program="vp" />
+		<bind param="u_C" program="vp" />
+		<bind param="u_D" program="vp" />
+		<bind param="u_E" program="vp" />
+		<bind param="u_F" program="vp" />
+		<bind param="u_G" program="vp" />
+		<bind param="u_H" program="vp" />
+		<bind param="u_I" program="vp" />
+		<bind param="u_J" program="vp" />
+		<bind param="u_K" program="vp" />
+		<bind param="u_L" program="vp" />
+		<program name="vp" type="vertex">
+
+<![CDATA[
+#version 330 core
+float a;
+float b;
+float c;
+float d;
+float f;
+float g;
+
+float dtA;
+float dtB;
+float dtC;
+float dtD;
+float dtE;
+float dtF;
+float dtG;
+float dtH;
+float dtI;
+float dtJ;
+float dtK;
+float dtL;
+
+uniform float speed;
+uniform int attractor;
+uniform float u_A;
+uniform float u_B;
+uniform float u_C;
+uniform float u_D;
+uniform float u_E;
+uniform float u_F;
+uniform float u_G;
+uniform float u_H;
+uniform float u_I;
+uniform float u_J;
+uniform float u_K;
+uniform float u_L;
+uniform vec4 u_col;
+
+in vec3 i_pos;
+in vec4 i_col;
+
+out vec3 o_pos;
+out vec4 o_col;
+
+void main() {
+	float x = i_pos.x;
+	float y = i_pos.y;
+	float z = i_pos.z;
+
+	float dxA, dyA, dzA;
+	float dxB, dyB, dzB;
+	float dxC, dyC, dzC;
+	float dxD, dyD, dzD;
+	float dxE, dyE, dzE;
+	float dxF, dyF, dzF;
+	float dxG, dyG, dzG;
+	float dxH, dyH, dzH;
+	float dxI, dyI, dzI;
+	float dxJ, dyJ, dzJ;
+	float dxK, dyK, dzK;
+	float dxL, dyL, dzL;
+
+	// A --- lorenz attractor 
+		dtA = 0.005 * speed;
+		a = 10;
+		b = 28;
+		c = 8/3;
+
+		dxA = dtA * (a * (y - x));
+		dyA = dtA * (x * (b - z) - y);
+		dzA = dtA * (x * y - c * z);
+
+	// B --- Arneodo Attractor
+
+		dtB = 0.015 * speed;
+		a = -5.5;
+		b = 3.5;
+		c = -1;
+
+		dxB = dtB * y;
+		dyB = dtB * z;
+		dzB = dtB * (-a * x - b * y - z + c * pow(x, 3));
+
+
+	// C --- Burke - Shaw Attractor
+		dtC = 0.003 * speed;
+		a = 10;
+		b = 4.272;
+
+		dxC = dtC * (-a * (x + y));
+		dyC = dtC * (-y - a * x * z);
+		dzC = dtC * (a * x * y + b);
+	
+	// D --- Chen - Lee Attractor
+		dtD = 0.002 * speed;	
+		a = 5;
+		b = -10;
+		c = -0.38;
+
+		dxD = dtD * (a * x - y * z);
+		dyD = dtD * (b * y + x * z);
+		dzD = dtD * (c * z + x * (y / 3));
+	
+	// E --- Aizawa Attractor
+		dtE = 0.01 * speed;
+		a = 0.95;
+		b = 0.7;
+		c = 0.1;
+		d = 3.5;
+		f = 0.25;
+		g = 0.6;
+
+		dxE = dtE * ((z - b) * x - d * y);
+		dyE = dtE * (d * x + (z - b) * y);
+		dzE = dtE * (g + a * z - (z*z*z)/3 - (x*x + y*y) * (1 + f*z) + c * z * (x*x*x));
+	
+	// F --- Thomas Attractor
+		dtF = 0.05 * speed;	
+		a = 0.19;
+
+		dxF = dtF * (-a * x + sin(y));
+		dyF = dtF * (-a * y + sin(z));
+		dzF = dtF * (-a * z + sin(x));
+
+	// G --- lorenz mod2 attractor
+		dtG = 0.005 * speed;
+		a = 0.9;
+		b = 5;
+		c = 9.9;
+		d = 1;
+
+		dxG = dtG * (-a * x + (y*y) - (z*z) + a * c);
+		dyG = dtG * (x * (y - b * z) + d);
+		dzG = dtG * (-z + x * (b * y + z));
+	
+	// H --- Hadley Attractor
+		dtH = 0.005 * speed;		
+		a = 0.2;
+		b = 4;
+		c = 8;
+		d = 1;
+
+		dxH = dtH * (-(y*y) - (z*z) - a * x + a * c);
+		dyH = dtH * (x * y - b * x * z - y + d);
+		dzH = dtH * (b * x * y + x * z - z);
+	
+	// I --- Halvorsen Attractor
+		dtI = 0.005 * speed;
+		a = 1.4;
+
+		dxI = dtI * (-a*x - 4*y - 4*z - y*y);
+		dyI = dtI * (-a*y - 4*z - 4*x - z*z);
+		dzI = dtI * (-a*z - 4*x - 4*y - x*x);
+	
+	// J --- Three-Scroll Unified Chaotic System Attractor
+		dtJ = 0.002 * speed;	
+		a = 40;
+		b = 0.833;
+		c = 20;
+		d = 0.5;
+		f = 0.65;
+
+		dxJ = dtJ * (a * (y - x) + d*x*z);
+		dyJ = dtJ * (c*y - x*z);
+		dzJ = dtJ * (b*z + x*y - f * (x*x));
+	
+	// K --- Coullet Attractor
+		dtK = 0.04 * speed;	
+		a = 0.8;
+		b = -1.1;
+		c = -0.45;
+		d = -1;
+
+		dxK = dtK * (y);
+		dyK = dtK * (z);
+		dzK = dtK * (a*x + b*y + c*z + d*(x*x*x));
+
+	// L --- Dadras Attractor
+		dtL = 0.01 * speed;
+		a = 3;
+		b = 2.7;
+		c = 1.7;
+		d = 2;
+		f = 9;
+
+		dxL = dtL * (y - a*x + b*y*z);
+		dyL = dtL * (c*y - x*z + z);
+		dzL = dtL * (d*x*y - f*z);
+
+
+	vec3 attractorForceA = vec3(dxA, dyA, dzA);
+	vec3 attractorForceB = vec3(dxB, dyB, dzB);
+	vec3 attractorForceC = vec3(dxC, dyC, dzC);
+	vec3 attractorForceD = vec3(dxD, dyD, dzD);
+	vec3 attractorForceE = vec3(dxE, dyE, dzE);
+	vec3 attractorForceF = vec3(dxF, dyF, dzF);
+	vec3 attractorForceG = vec3(dxG, dyG, dzG);
+	vec3 attractorForceH = vec3(dxH, dyH, dzH);
+	vec3 attractorForceI = vec3(dxI, dyI, dzI);
+	vec3 attractorForceJ = vec3(dxJ, dyJ, dzJ);
+	vec3 attractorForceK = vec3(dxK, dyK, dzK);
+	vec3 attractorForceL = vec3(dxL, dyL, dzL);
+
+	vec3 finalForce = 	(vec3(u_A) * attractorForceA) + 
+						(vec3(u_B) * attractorForceB) + 
+						(vec3(u_C) * attractorForceC) + 
+						(vec3(u_D) * attractorForceD) + 
+						(vec3(u_E) * attractorForceE) + 
+						(vec3(u_F) * attractorForceF) + 
+						(vec3(u_G) * attractorForceG) + 
+						(vec3(u_H) * attractorForceH) + 
+						(vec3(u_I) * attractorForceI) + 
+						(vec3(u_J) * attractorForceJ) + 
+						(vec3(u_K) * attractorForceK) + 
+						(vec3(u_L) * attractorForceL);
+
+
+//POSITION
+    o_pos = i_pos + finalForce;
+    float change_pos = length(o_pos - i_pos);
+	o_pos = mod(o_pos + vec3(500.0), vec3(1000.0)) - vec3(500.0);
+		// wrap position
+		
+ 
+//COLOR
+	o_col = vec4(u_col) + change_pos * 0.02;
+
+}
+]]>
+		</program>
+
+		<program name="fp" type="fragment"  >
+<![CDATA[
+#version 330 core
+void main() 
+{
+}
+		]]>
+		</program>
+	</language>
+</jittershader>
